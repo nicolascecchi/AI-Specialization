@@ -53,20 +53,20 @@ for i in range(2,5):
     print('for degree {} the best params are {}'.format(i,best_model))
 
 #for degree 2 the best params are
-# [[ 6.08392134e-04]
-# [-9.51153456e-02]
-# [ 1.67402856e+01]]
+#array([[ 33.13094908],
+#       [-22.4471002 ],
+#       [ 16.85062331]])
 #for degree 3 the best params are 
-# [[-1.00432097e-06]
-# [ 6.01393682e-04]
-# [-4.59886298e-05]
-# [ 1.79237633e+01]]
+#array([[-12.95454814],
+#       [ 33.19692007],
+#       [ -0.38735833],
+#       [ 17.99520712]])
 #for degree 4 the best params are 
-#[[-3.40200167e-11]
-# [-1.00474380e-06]
-# [ 6.05970501e-04]
-# [ 7.01541559e-07]
-# [ 1.78502200e+01]]
+#array([[-3.20395010e-02],
+#       [-1.29526745e+01],
+#       [ 3.32758263e+01],
+#       [-3.89889222e-01],
+#       [ 1.79710369e+01]])
 
 dict_errores = {}
 mse = MSE()
@@ -122,6 +122,11 @@ dict_errores.update({'degree4_test':mse(target=test_prediction_4,prediction=ytes
 # 'degree4_train': 951511.5607813575,
 # 'degree4_test': 269503.3395450088}
 
+# Vemos que los errores son todos muy similares en cuanto a dimensiones,
+# Matematicamente daba mejor usar degree2_test aca, pero la forma de los datos
+# ya nos damos cuenta que no es una parabola,
+# por lo tanto tomo el siguiente nivel, grado 3 que tiene mejor pinta el polinomio
+# al ver que tiene 2 puntos de inflexion claros en los graficos
 
 # Punto 3.C
 # Se selecciona el modelo que tenga menor TEST error
@@ -163,6 +168,10 @@ W_mini_batch, train_error_log, validation_error_log = mini_batch_gradient_descen
                                                                        epochs=10000)
 prediction_mini_batch =  xtest_3 @ W_mini_batch 
 
+# Parte 4.B
+# Grafico de los errores
+# Se encuentran las salidas en la carpeta
+
 plt.scatter(xtest,prediction_mini_batch)
 plt.title('Prediccion de MiniBatch sobre xtest noramizado')
 plt.show()
@@ -188,10 +197,23 @@ ax.set_title('Validation vs Train error evolution over first 75 epochs')
 ax.legend()
 plt.show()
 
+#Parte 4.c
+# Analisis de resultados
 #
-#
-#
-#
+# W_minibatch
+#array([[-12.8975913 ],
+#       [ 33.09440005],
+#       [ -0.50365608],
+#       [ 17.99626227]])
+# W_3
+#array([[-12.95454814],
+#       [ 33.19692007],
+#       [ -0.38735833],
+#       [ 17.99520712]])
+# Vemos que los pesos que consigue minibatch y el modelo polinomico son extremadamente parecidos, 
+# tambien comparando los graficos, vemos que los resultados son muy similares.
+# De los graficos de los errores en las epochs, vemos que las 50k fueron exageradas y que 
+# ya a partir de epoch=75 el error ya es muy chiquito.
 #
 #
 
